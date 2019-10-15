@@ -24,8 +24,8 @@ class Bag_Teleop:
                 rospy.logwarn("Killing recording")
             else:
                 self.bag_recording = True
-                os.system("roslaunch bag_teleop bag_loc.launch &")
-                rospy.logwarn("Launching bag")
+                os.system("roslaunch bag_teleop x.launch &")
+                rospy.logwarn("Launching X")
 
         if msg.buttons[6]: # BACK BUTTON
             if self.bag_recording:
@@ -34,8 +34,8 @@ class Bag_Teleop:
                 rospy.logwarn("killing recording")
             else:
                 self.bag_recording = True
-                os.system("roslaunch bag_teleop bag.launch &")
-                rospy.logwarn("Launching bag")
+                os.system("roslaunch bag_teleop back.launch &")
+                rospy.logwarn("Launching BACK")
         if msg.buttons[0]: # A BUTTON
             if self.bag_recording:
                 self.bag_recording = False
@@ -43,8 +43,8 @@ class Bag_Teleop:
                 rospy.logwarn("killing recording")
             else:
                 self.bag_recording = True
-                os.system("roslaunch bag_teleop bag_no_lidar.launch &")
-                rospy.logwarn("Launching bag no lidar")
+                os.system("roslaunch bag_teleop a.launch &")
+                rospy.logwarn("Launching A")
 
 
     def start(self):
