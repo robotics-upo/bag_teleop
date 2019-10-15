@@ -3,10 +3,6 @@
 import rospy
 from sensor_msgs.msg import Joy
 import os
-# Using D mode
-# buttons = {"X": 0, "A": 1, "B": 2, "Y": 3, "LB": 4, "RB": 5, "LT": 6, "RT": 7, "BACK": 8,
-#            "START": 9, "LJOY": 10, "RJOY": 11}
-# axis = {"XArrows": 0, "YArrows": 1, "XRJoy": 2, "YRJoy": 3, "XLJoy": 4, "YLJoy": 5}
 
 class Bag_Teleop:
     """
@@ -21,7 +17,7 @@ class Bag_Teleop:
 
     def update_joy(self, msg):
         
-	if msg.buttons[2]: #
+	if msg.buttons[2]: # X Button
             if self.bag_recording:
                 self.bag_recording = False
                 os.system("rosnode kill /record")
@@ -31,7 +27,7 @@ class Bag_Teleop:
                 os.system("roslaunch bag_teleop bag_loc.launch &")
                 rospy.logwarn("Launching bag")
 
-        if msg.buttons[6]: #
+        if msg.buttons[6]: # BACK BUTTON
             if self.bag_recording:
                 self.bag_recording = False
                 os.system("rosnode kill /record")
@@ -40,7 +36,7 @@ class Bag_Teleop:
                 self.bag_recording = True
                 os.system("roslaunch bag_teleop bag.launch &")
                 rospy.logwarn("Launching bag")
-        if msg.buttons[0]: #
+        if msg.buttons[0]: # A BUTTON
             if self.bag_recording:
                 self.bag_recording = False
                 os.system("rosnode kill /record")
