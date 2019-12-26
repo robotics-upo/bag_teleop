@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import Int32
 from sensor_msgs.msg import Joy
 import os
-# Using D mode
-# buttons = {"X": 0, "A": 1, "B": 2, "Y": 3, "LB": 4, "RB": 5, "LT": 6, "RT": 7, "BACK": 8,
-#            "START": 9, "LJOY": 10, "RJOY": 11}
-# axis = {"XArrows": 0, "YArrows": 1, "XRJoy": 2, "YRJoy": 3, "XLJoy": 4, "YLJoy": 5}
-
 
 class Bag_Teleop:
     """
@@ -22,35 +16,35 @@ class Bag_Teleop:
         rospy.loginfo("{} is initialized".format(rospy.get_name()))
 
     def update_joy(self, msg):
-	if msg.buttons[2]: #
+        
+	if msg.buttons[2]: # X Button
             if self.bag_recording:
                 self.bag_recording = False
                 os.system("rosnode kill /record")
-                rospy.logwarn("killing recording")
+                rospy.logwarn("Killing recording")
             else:
                 self.bag_recording = True
-                os.system("roslaunch nix_launchers bag_loc.launch &")
-                rospy.logwarn("lauinching bag")
+                os.system("roslaunch bag_teleop x.launch &")
+                rospy.logwarn("Launching X")
 
-       
-        if msg.buttons[6]: #
+        if msg.buttons[6]: # BACK BUTTON
             if self.bag_recording:
                 self.bag_recording = False
                 os.system("rosnode kill /record")
                 rospy.logwarn("killing recording")
             else:
                 self.bag_recording = True
-                os.system("roslaunch nix_launchers bag.launch &")
-                rospy.logwarn("lauinching bag")
-        if msg.buttons[0]: #
+                os.system("roslaunch bag_teleop back.launch &")
+                rospy.logwarn("Launching BACK")
+        if msg.buttons[0]: # A BUTTON
             if self.bag_recording:
                 self.bag_recording = False
                 os.system("rosnode kill /record")
                 rospy.logwarn("killing recording")
             else:
                 self.bag_recording = True
-                os.system("roslaunch nix_launchers bag_no_lidar.launch &")
-                rospy.logwarn("lauinching bag no lidar")
+                os.system("roslaunch bag_teleop a.launch &")
+                rospy.logwarn("Launching A")
 
 
     def start(self):
